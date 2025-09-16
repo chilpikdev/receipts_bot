@@ -2,8 +2,9 @@ module.exports = {
   apps: [
     {
       name: 'receipts-bot',
-      script: 'bot/main.py',
+      script: '-m',
       interpreter: 'python3',
+      args: 'bot.main',
       cwd: '/path/to/your/receipts_bot',
       env: {
         PYTHONPATH: '/path/to/your/receipts_bot',
