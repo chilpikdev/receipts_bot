@@ -5,9 +5,9 @@ module.exports = {
       script: 'bot/main.py',        
       interpreter: 'python3',
       interpreterArgs: '-m bot.main',
-      cwd: '/path/to/your/receipts_bot',
+      cwd: '/path/to/your/receipts_bot', // change this to your project path
       env: {
-        PYTHONPATH: '/path/to/your/receipts_bot',
+        PYTHONPATH: '/path/to/your/receipts_bot', // change this to your project path
         DJANGO_SETTINGS_MODULE: 'receipts_project.settings'
       },
       error_file: './logs/err.log',
@@ -25,9 +25,9 @@ module.exports = {
       script: 'manage.py',
       args: 'runserver 0.0.0.0:8000',
       interpreter: 'python3',
-      cwd: '/path/to/your/receipts_bot',
+      cwd: '/path/to/your/receipts_bot', // change this to your project path
       env: {
-        PYTHONPATH: '/path/to/your/receipts_bot',
+        PYTHONPATH: '/path/to/your/receipts_bot', // change this to your project path
         DJANGO_SETTINGS_MODULE: 'receipts_project.settings'
       },
       error_file: './logs/admin_err.log',
