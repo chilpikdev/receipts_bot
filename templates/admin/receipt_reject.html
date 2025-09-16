@@ -1,0 +1,75 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block title %}Отклонение чека | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">Главная</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+&rsaquo; <a href="{% url 'admin:bot_management_receipt_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; Отклонение чека
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module aligned">
+        <h2>Отклонить чек #{{ receipt.id }}</h2>
+        
+        <div class="form-row">
+            <h3>Информация о чеке:</h3>
+            <ul>
+                <li><strong>ID:</strong> #{{ receipt.id }}</li>
+                <li><strong>Пользователь:</strong> {{ receipt.user }}</li>
+                <li><strong>Филиал:</strong> {{ receipt.branch.name_uz }}</li>
+                <li><strong>Отправлен:</strong> {{ receipt.submitted_at }}</li>
+                <li><strong>Файл:</strong> 
+                    {% if receipt.file %}
+                        <a href="{{ receipt.file.url }}" target="_blank">Посмотреть файл</a>
+                    {% else %}
+                        Нет файла
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <fieldset class="module aligned">
+                <h3>Причина отклонения:</h3>
+                <div class="form-row">
+                    <div>
+                        <label for="{{ form.reason.id_for_label }}" class="required">{{ form.reason.label }}:</label>
+                        {{ form.reason }}
+                        {% if form.reason.help_text %}
+                            <p class="help">{{ form.reason.help_text }}</p>
+                        {% endif %}
+                        {% if form.reason.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.reason.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </fieldset>
+            
+            <div class="submit-row">
+                <input type="submit" value="Отклонить чек" class="default" style="background-color: #dc3545;" />
+                <p class="deletelink-box">
+                    <a href="../" class="button">Отмена</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Focus on the reason textarea
+    document.getElementById('{{ form.reason.id_for_label }}').focus();
+});
+</script>
+{% endblock %}
